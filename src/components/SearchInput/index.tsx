@@ -9,5 +9,5 @@ export const SearchInput = (props: Props) => {
 
     const { input, setInput } = props;
 
-    return <input className={style.searchInput} type="text" value={input} onChange={(e) => setInput(e.target.value)}/>
+    return <input className={style.searchInput} placeholder="Search" type="text" value={input} onChange={(e) => setInput(e.target.value)}/>
 }
