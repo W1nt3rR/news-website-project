@@ -1,0 +1,28 @@
+@import "../../common.scss";
+
+.card {
+    display: flex;
+    background-color: $base-color;
+    border-radius: $border-radius;
+    // transition: $transition;
+    box-shadow: $shadow;
+    // margin: 16px 0;
+    // width: 25vw;
+    width: 256px;
+    min-height: 128px;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 16px;
+
+    img {
+        // height: 128px;
+        width: 100%;
+        margin: auto;
+        border-radius: var(--border-radius);
+    }
+
+    h1 {
+        font-size: 24pt;
+    }
+}
