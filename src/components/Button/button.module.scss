@@ -1,0 +1,27 @@
+@import "../../common.scss";
+
+.button {
+    min-width: 128px;
+    height: 48px;
+    margin: 4px;
+    border: none;
+    cursor: pointer;
+    transition: $transition;
+    border-radius: $border-radius;
+    box-shadow: $shadow;
+
+    &:hover {
+        background-color: $color-hover;
+        color: white;
+    }
+}
+
+.white {
+    background-color: $base-color;
+    color: $color;
+}
+
+.coloured {
+    background-color: $color;
+    color: white;
+}
