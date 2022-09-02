@@ -5,3 +5,11 @@
     align-items: center;
     gap: $gap;
 }
+
+.newsContainer {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 32px;
+}
