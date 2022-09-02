@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { newsAPI } from "../../api/api";
+import { Button } from "../Button";
 import { Layout } from "../Layout";
 import { SearchInput } from "../SearchInput";
 import style from "./home.module.scss";
@@ -33,9 +34,9 @@ export const Home = (props : Props) => {
     }
 
     return <Layout>
-        <div>
+        <div className={style.searchContainer}>
             <SearchInput input={search} setInput={setSearch}/>
-            <button className={style.search}>Search</button>
+            <Button type="coloured" onClickFn={() => {}} text="Search"/>
         </div>
     </Layout>
 }

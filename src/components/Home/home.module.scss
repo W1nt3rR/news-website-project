@@ -1,5 +1,7 @@
 @import "../../common.scss";
 
-.search {
-    
+.searchContainer {
+    display: flex;
+    align-items: center;
+    gap: $gap;
 }
