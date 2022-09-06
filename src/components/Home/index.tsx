@@ -14,6 +14,7 @@ export const Home = (props : Props) => {
 
     const [ news, setNews ] = useState(JSON.parse(localStorage.getItem("News") as string));
     const [ search, setSearch ] = useState("");
+    const [ currentPage, setCurrentPage] = useState(1);
 
     // console.log(search);
 
@@ -23,12 +24,17 @@ export const Home = (props : Props) => {
         // fetchNews();
     }, [])
 
+    const newsParams = {
+        pageSize: 20,
+        page: currentPage
+    }
+
     const fetchNews = async (searchParam?: string) => {
         try {
             let result;
 
             if(searchParam) {
-                result = await newsAPI.get("everything", {params: { q: searchParam}});
+                result = await newsAPI.get("everything", {params: { q: searchParam, ...newsParams}});
             } else {
                 result = await newsAPI.get("top-headlines");
             }
@@ -51,6 +57,13 @@ export const Home = (props : Props) => {
             {news && news.map((item : Object) => {
                 return <Card info={item} />
             })}
+        </div>
+
+        <div>
+            <Button type="coloured" onClickFn={() => {
+                setCurrentPage(currentPage + 1);
+                fetchNews(search);
+                }} text="Next Page"></Button>
         </div>
     </Layout>
 }
