@@ -16,7 +16,17 @@ export const ArticlePage = (props: Props) => {
 
     const info : news = location.state as object;
 
+    console.log(info);
+
     return <Layout>
-        <img src={info.urlToImage} alt="" />
+        <div className={style.newsContainer}>
+            <img src={info.urlToImage} alt="" />
+            <h1>{info.title}</h1>
+            <h5>{info.publishedAt}</h5>
+            <h5>By: {info.author}</h5>
+            <p>{info.description}</p>
+            <p>{info.content}</p>
+
+        </div>
     </Layout>
 }
