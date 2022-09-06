@@ -26,6 +26,7 @@ export const Home = (props : Props) => {
     const fetchNews = async (searchParam?: string) => {
         try {
             let result;
+
             if(searchParam) {
                 result = await newsAPI.get("everything", {params: { q: searchParam}});
             } else {
@@ -47,7 +48,7 @@ export const Home = (props : Props) => {
         </div>
             
         <div className={style.newsContainer}>
-            {news.map((item : Object) => {
+            {news && news.map((item : Object) => {
                 return <Card info={item} />
             })}
         </div>
