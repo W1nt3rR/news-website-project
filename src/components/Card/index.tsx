@@ -10,11 +10,17 @@ export const Card = (props : Props) => {
 
     const { info } = props;
 
+    console.log(info.title);
+
     const navigation = useNavigate();
+
+    const openArticlePage = () => {
+        navigation(`/news/${(info.title).replace(/\s/g, '-')}`, {state: info});
+    }
 
     return <div className={style.card}>
         <img src={info.urlToImage} alt="" />
         <h3>{info.title}</h3>
-        <Button type="coloured" text="More Info" onClickFn={() => { navigation(`/news/${info.title}`, {state: info})}}></Button>
+        <Button type="coloured" text="More Info" onClickFn={openArticlePage}></Button>
     </div>
 }
