@@ -21,6 +21,7 @@ export const Card = (props : Props) => {
     return <div className={style.card}>
         <img src={info.urlToImage} alt="" />
         <h3>{info.title}</h3>
+        <div className="filler"></div>
         <Button type="white" text="More Info" onClickFn={openArticlePage}></Button>
     </div>
 }
