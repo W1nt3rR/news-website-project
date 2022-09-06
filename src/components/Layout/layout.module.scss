@@ -1,0 +1,10 @@
+@import "../../common.scss";
+
+.layout {
+    margin-top: $nav-size;
+    padding: 0 $side-padding $side-padding $side-padding;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
