@@ -10,7 +10,7 @@ export const Card = (props : Props) => {
 
     const { info } = props;
 
-    console.log(info.title);
+    // console.log(info.title);
 
     const navigation = useNavigate();
 
