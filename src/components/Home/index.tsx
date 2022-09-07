@@ -47,7 +47,7 @@ export const Home = (props : Props) => {
         }
     }
 
-    const handlePageChange = (forward : boolean) => {
+    const handlePageChange = (forward: boolean) => {
         if(forward) 
             setCurrentPage(currentPage + 1);
 
@@ -64,8 +64,8 @@ export const Home = (props : Props) => {
         </div>
             
         <div className={style.newsContainer}>
-            {news && news.map((item : Object) => {
-                return <Card info={item} />
+            {news && news.map((item: Object, index: number) => {
+                return <Card key={index} info={item} />
             })}
         </div>
 
