@@ -47,6 +47,14 @@ export const Home = (props : Props) => {
         }
     }
 
+    const handlePageChange = (forward : boolean) => {
+        if(forward) 
+            setCurrentPage(currentPage + 1);
+
+        if(!forward && currentPage > 0)
+            setCurrentPage(currentPage - 1);
+    }
+
     return <Layout>
         <div className={style.searchContainer}>
             <SearchInput input={search} setInput={setSearch}/>
@@ -59,11 +67,16 @@ export const Home = (props : Props) => {
             })}
         </div>
 
-        <div>
+        <div className={style.pagination}>
             <Button type="coloured" onClickFn={() => {
-                setCurrentPage(currentPage + 1);
+                handlePageChange(false);
                 fetchNews(search);
-                }} text="Next Page"></Button>
+                }} text="Previous Page" />
+
+            <Button type="coloured" onClickFn={() => {
+                handlePageChange(true);
+                fetchNews(search);
+                }} text="Next Page" />
         </div>
     </Layout>
 }
