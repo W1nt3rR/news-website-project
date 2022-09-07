@@ -15,7 +15,7 @@ export const Card = (props : Props) => {
     const navigation = useNavigate();
 
     const openArticlePage = () => {
-        navigation(`/news/${(info.title).replace(/\s/g, '-')}`, {state: info});
+        navigation(`/article/${(info.title).replace(/\s/g, '-')}`, {state: info});
     }
 
     return <div className={style.card}>
