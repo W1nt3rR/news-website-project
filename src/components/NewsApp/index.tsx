@@ -12,7 +12,7 @@ export const NewsApp = (props : Props) => {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/news*" element={<ArticlePage />} />
+                <Route path="/news/*" element={<ArticlePage />} />
                 <Route path="*" element={<p>404</p>} />
             </Routes>
         </BrowserRouter>
