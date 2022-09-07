@@ -53,6 +53,8 @@ export const Home = (props : Props) => {
 
         if(!forward && currentPage > 0)
             setCurrentPage(currentPage - 1);
+
+        fetchNews(search);
     }
 
     return <Layout>
@@ -68,15 +70,8 @@ export const Home = (props : Props) => {
         </div>
 
         <div className={style.pagination}>
-            <Button type="coloured" onClickFn={() => {
-                handlePageChange(false);
-                fetchNews(search);
-                }} text="Previous Page" />
-
-            <Button type="coloured" onClickFn={() => {
-                handlePageChange(true);
-                fetchNews(search);
-                }} text="Next Page" />
+            <Button type="coloured" onClickFn={() => handlePageChange(false)} text="Previous Page" />
+            <Button type="coloured" onClickFn={() => handlePageChange(true)} text="Next Page" />
         </div>
     </Layout>
 }
