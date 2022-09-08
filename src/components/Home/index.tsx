@@ -60,7 +60,7 @@ export const Home = (props : Props) => {
     return <Layout>
         <div className={style.searchContainer}>
             <SearchInput input={search} setInput={setSearch}/>
-            <Button type="coloured" onClickFn={() => {fetchNews(search)}} text="Search"/>
+            <Button type="coloured" onClickFn={() => fetchNews(search)} text="Search"/>
         </div>
             
         <div className={style.newsContainer}>
