@@ -27,10 +27,13 @@ export const Home = (props : Props) => {
         // fetchNews();
     }, [])
 
-    const newsParams = {
+    const searchParams = {
+        sortBy: sort
+    }
+
+    const commonParams = {
         pageSize: 20,
         page: currentPage,
-        sortBy: sort
     }
 
     const fetchNews = async (searchParam?: string) => {
@@ -38,9 +41,9 @@ export const Home = (props : Props) => {
             let result;
 
             if(searchParam) {
-                result = await newsAPI.get("everything", {params: { q: searchParam, ...newsParams}});
+                result = await newsAPI.get("everything", {params: { q: searchParam, ...commonParams, ...searchParams}});
             } else {
-                result = await newsAPI.get("top-headlines");
+                result = await newsAPI.get("top-headlines", {params: { ...commonParams }});
             }
 
             const data = result.data.articles;
@@ -51,13 +54,8 @@ export const Home = (props : Props) => {
         }
     }
 
-    const handlePageChange = (forward: boolean) => {
-        if(forward) 
-            setCurrentPage(currentPage + 1);
-
-        if(!forward && currentPage > 0)
-            setCurrentPage(currentPage - 1);
-
+    const handleLoadMore = () => {
+        setCurrentPage(currentPage + 1);
         fetchNews(search);
     }
 
@@ -75,8 +73,7 @@ export const Home = (props : Props) => {
         </div>
 
         <div className={style.pagination}>
-            <Button type="coloured" onClickFn={() => handlePageChange(false)} text="Previous Page" />
-            <Button type="coloured" onClickFn={() => handlePageChange(true)} text="Next Page" />
+            <Button type="coloured" onClickFn={handleLoadMore} text="Load More" />
         </div>
     </Layout>
 }
