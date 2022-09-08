@@ -4,6 +4,7 @@ import { Button } from "../Button";
 import { Card } from "../Card";
 import { Layout } from "../Layout";
 import { SearchInput } from "../SearchInput";
+import { SelectOption } from "../SelectOption";
 import style from "./home.module.scss";
 
 interface Props {
@@ -16,6 +17,8 @@ export const Home = (props : Props) => {
     const [ search, setSearch ] = useState("");
     const [ currentPage, setCurrentPage] = useState(1);
 
+    const [ sort, setSort ] = useState("publishedAt");
+
     // console.log(search);
 
     localStorage.setItem("News", JSON.stringify(news));
@@ -26,7 +29,8 @@ export const Home = (props : Props) => {
 
     const newsParams = {
         pageSize: 20,
-        page: currentPage
+        page: currentPage,
+        sortBy: sort
     }
 
     const fetchNews = async (searchParam?: string) => {
@@ -60,6 +64,7 @@ export const Home = (props : Props) => {
     return <Layout>
         <div className={style.searchContainer}>
             <SearchInput input={search} setInput={setSearch}/>
+            <SelectOption setOption={setSort} />
             <Button type="coloured" onClickFn={() => fetchNews(search)} text="Search"/>
         </div>
             
