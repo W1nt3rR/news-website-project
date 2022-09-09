@@ -7,63 +7,77 @@ import { SearchInput } from "../SearchInput";
 import { SelectOption } from "../SelectOption";
 import style from "./home.module.scss";
 
-interface Props {
+export const Home = () => {
 
-}
-
-export const Home = (props : Props) => {
-
-    const [ news, setNews ] = useState(JSON.parse(localStorage.getItem("News") as string));
+    const [ news, setNews ] = useState([]);
     const [ search, setSearch ] = useState("");
     const [ currentPage, setCurrentPage] = useState(1);
-
+    const [ endOfNews, setEndOfNews ] = useState(false);
+    const [ selectedCountry, setSelectedCountry ] = useState("us");
     const [ sort, setSort ] = useState("publishedAt");
 
-    // console.log(search);
-
-    localStorage.setItem("News", JSON.stringify(news));
-
     useEffect(() => {
-        // fetchNews();
+        // handleSearchClick();
     }, [])
 
     const searchParams = {
-        sortBy: sort
+        sortBy: sort,
+        q: search
+    }
+
+    const topHeadlinesParams = {
+        country: selectedCountry
     }
 
     const commonParams = {
         pageSize: 20,
-        page: currentPage,
+        page: currentPage
     }
 
-    const fetchNews = async (searchParam?: string) => {
+    const fetchNews = async () => {
         try {
             let result;
 
-            if(searchParam) {
-                result = await newsAPI.get("everything", {params: { q: searchParam, ...commonParams, ...searchParams}});
-            } else {
-                result = await newsAPI.get("top-headlines", {params: { ...commonParams }});
-            }
+            if(search)
+                result = await newsAPI.get("everything", {params: { ...commonParams, ...searchParams }});
+            else
+                result = await newsAPI.get("top-headlines", {params: { ...commonParams, ...topHeadlinesParams }});
 
             const data = result.data.articles;
             console.log(data);
-            setNews(data);
+            return data;
         } catch (error) {
             console.log(error);
         }
     }
 
-    const handleLoadMore = () => {
+    const handleLoadMore = async () => {
+        if(endOfNews)
+            return;
+
         setCurrentPage(currentPage + 1);
-        fetchNews(search);
+        const moreNews = await fetchNews();
+        if(moreNews.length < 20)
+            setEndOfNews(true);
+
+        setNews([...news, ...moreNews] as any);
+    }
+
+    const handleSearchClick = async () => {
+        // Reset control variables
+        setCurrentPage(2);
+        setEndOfNews(false);
+
+        const newNews = await fetchNews();
+
+        setNews(newNews);
     }
 
     return <Layout>
         <div className={style.searchContainer}>
             <SearchInput input={search} setInput={setSearch}/>
             <SelectOption setOption={setSort} />
-            <Button type="coloured" onClickFn={() => fetchNews(search)} text="Search"/>
+            <Button type="coloured" onClickFn={handleSearchClick} text="Search"/>
         </div>
             
         <div className={style.newsContainer}>
