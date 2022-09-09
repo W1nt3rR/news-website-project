@@ -14,7 +14,6 @@ export const Card = (props : Props) => {
     const { index } = props;
     const maxLength = 50;
 
-
     const openArticlePage = () => {
         navigation(`/article/${(news[index].title).replace(/\s/g, '-')}`, {state: index});
     }

@@ -86,7 +86,7 @@ export const Home = () => {
         </div>
             
         <div className={style.newsContainer}>
-            {news && news.map((index: number) => {
+            {news && news.map((item: any, index: number) => {
                 return <Card key={index} index={index} />
             })}
         </div>
