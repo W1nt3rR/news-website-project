@@ -2,9 +2,9 @@
 
 .searchInput {
     width: 50vw;
-    height: 48px;
+    height: $searchSize;
     font-size: 24px;
     padding: 0 16px;
     border-radius: $border-radius;
-    border: 1px solid black;
+    border: 1px solid $color;
 }

@@ -1,11 +1,10 @@
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
+import { createGlobalState } from "react-use";
 import style from "./layout.module.scss";
 
-interface Props {
+export const useGlobalNews = createGlobalState<any[]>([]);
 
-}
-
-export const Layout = (props : PropsWithChildren<Props>) => {
+export const Layout = (props : PropsWithChildren) => {
     return <>
         <div className={style.layout}>
             {props.children}
