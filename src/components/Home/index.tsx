@@ -43,9 +43,7 @@ export const Home = () => {
             else
                 result = await newsAPI.get("top-headlines", {params: { ...commonParams, ...topHeadlinesParams }});
 
-            const data = result.data.articles;
-            console.log(data);
-            return data;
+            return result.data.articles;
         } catch (error) {
             console.log(error);
         }
@@ -57,13 +55,14 @@ export const Home = () => {
 
         setCurrentPage(currentPage + 1);
         const moreNews = await fetchNews();
+        
         if(moreNews.length < 20)
             setEndOfNews(true);
 
         setNews([...news, ...moreNews] as any);
     }
 
-    const handleSearchClick = async () => {
+    const handleSearchClick = async () => {  
         // Reset control variables
         setCurrentPage(2);
         setEndOfNews(false);
@@ -74,7 +73,12 @@ export const Home = () => {
     }
 
     return <Layout>
+        
         <div className={style.searchContainer}>
+            <Button type="coloured" onClickFn={() => {
+                setSearch("");
+                handleSearchClick();
+            }} text="Top Headlines"/>
             <SearchInput input={search} setInput={setSearch}/>
             <SelectOption setOption={setSort} />
             <Button type="coloured" onClickFn={handleSearchClick} text="Search"/>
