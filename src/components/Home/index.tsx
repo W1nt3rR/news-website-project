@@ -17,7 +17,7 @@ export const Home = () => {
     const [ sort, setSort ] = useState("publishedAt");
 
     useEffect(() => {
-        // handleSearchClick();
+        handleSearchClick();
     }, [])
 
     const searchParams = {
