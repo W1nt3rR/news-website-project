@@ -1,32 +1,21 @@
 import { useLocation } from "react-router-dom"
-import { Layout } from "../Layout"
+import { Layout, useGlobalNews } from "../Layout"
 import style from "./article.module.scss"
 
-interface Props {
+export const ArticlePage = () => {
 
-}
-
-interface news {
-    [key: string]: any
-}
-
-export const ArticlePage = (props: Props) => {
-
+    const [ news ] = useGlobalNews();
     const location = useLocation();
-
-    const info : news = location.state as object;
-
-    console.log(info);
+    const index : number = location.state as number;
 
     return <Layout>
         <div className={style.newsContainer}>
-            <img src={info.urlToImage} alt="" />
-            <h1>{info.title}</h1>
-            <h5>{info.publishedAt}</h5>
-            <h5>By: {info.author}</h5>
-            <p>{info.description}</p>
-            <p>{info.content}</p>
-
+            <img src={news[index].urlToImage} alt="" />
+            <h1>{news[index].title}</h1>
+            <h5>{news[index].publishedAt}</h5>
+            <h5>By: {news[index].author}</h5>
+            <p>{news[index].description}</p>
+            <p>{news[index].content}</p>
         </div>
     </Layout>
 }

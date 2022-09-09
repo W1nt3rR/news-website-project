@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { newsAPI } from "../../api/api";
 import { Button } from "../Button";
 import { Card } from "../Card";
-import { Layout } from "../Layout";
+import { Layout, useGlobalNews } from "../Layout";
 import { SearchInput } from "../SearchInput";
 import { SelectOption } from "../SelectOption";
 import style from "./home.module.scss";
 
 export const Home = () => {
 
-    const [ news, setNews ] = useState([]);
+    // const [ news, setNews ] = useState([]);
+    const [ news, setNews ] = useGlobalNews();
     const [ search, setSearch ] = useState("");
     const [ currentPage, setCurrentPage] = useState(1);
     const [ endOfNews, setEndOfNews ] = useState(false);
@@ -85,8 +86,8 @@ export const Home = () => {
         </div>
             
         <div className={style.newsContainer}>
-            {news && news.map((item: Object, index: number) => {
-                return <Card key={index} info={item} />
+            {news && news.map((index: number) => {
+                return <Card key={index} index={index} />
             })}
         </div>
 
