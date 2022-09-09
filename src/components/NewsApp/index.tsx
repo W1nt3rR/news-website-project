@@ -12,7 +12,7 @@ export const NewsApp = (props : Props) => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/article/*" element={<ArticlePage />} />
-                <Route path="*" element={<p>404</p>} />
+                <Route path="*" element={<p>Error 404: Page Not Found</p>} />
             </Routes>
         </BrowserRouter>
     );
