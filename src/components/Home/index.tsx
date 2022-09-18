@@ -23,10 +23,6 @@ export const Home = () => {
         handleFirstLoad();
     }, [])
 
-    useEffect(() => {
-
-    }, [])
-
     const searchParams = {
         sortBy: sort,
         q: search
@@ -110,7 +106,6 @@ export const Home = () => {
     }
 
     return <Layout>
-        
         <div className={style.searchContainer}>
             <Button type="coloured" onClickFn={handleFirstLoad} text="Top Headlines"/>
             <SearchInput input={search} setInput={setSearch}/>
