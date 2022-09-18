@@ -8,3 +8,10 @@
     flex-direction: column;
     width: 100%;
 }
+
+@media screen and (max-width: 800px) {
+    .layout {
+        margin-top: 0;
+        padding: $side-padding;
+    }
+}

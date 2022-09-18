@@ -8,3 +8,9 @@
     border-radius: $border-radius;
     border: 1px solid $color;
 }
+
+@media screen and (max-width: 800px) {
+    .searchInput {
+        width: 90vw;
+    }
+}

@@ -87,8 +87,10 @@ export const Home = () => {
                 handleSearchClick();
             }} text="Top Headlines"/>
             <SearchInput input={search} setInput={setSearch}/>
-            <SelectOption setOption={setSort} />
-            <Button type="coloured" onClickFn={handleSearchClick} text="Search"/>
+            <div>
+                <SelectOption setOption={setSort} />
+                <Button type="coloured" onClickFn={handleSearchClick} text="Search"/>
+            </div>
         </div>
             
         <div className={style.newsContainer}>
