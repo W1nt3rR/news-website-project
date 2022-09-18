@@ -12,7 +12,7 @@ export const Card = (props : Props) => {
     const [ news ] = useGlobalNews();
     const navigation = useNavigate();
     const { index } = props;
-    const maxLength = 50;
+    const maxLength = 100;
 
     const openArticlePage = () => {
         navigation(`/article/${(news[index].title).replace(/\s/g, '-')}`, {state: index});
