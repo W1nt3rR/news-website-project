@@ -17,8 +17,14 @@ export const Home = () => {
     const [ selectedCountry, setSelectedCountry ] = useState("us");
     const [ sort, setSort ] = useState("publishedAt");
 
+    const newsAmmount = 10;
+
     useEffect(() => {
         handleSearchClick();
+    }, [])
+
+    useEffect(() => {
+
     }, [])
 
     const searchParams = {
@@ -31,7 +37,7 @@ export const Home = () => {
     }
 
     const commonParams = {
-        pageSize: 20,
+        pageSize: newsAmmount,
         page: currentPage
     }
 
@@ -57,7 +63,7 @@ export const Home = () => {
         setCurrentPage(currentPage + 1);
         const moreNews = await fetchNews();
         
-        if(moreNews.length < 20)
+        if(moreNews.length < newsAmmount)
             setEndOfNews(true);
 
         setNews([...news, ...moreNews] as any);
