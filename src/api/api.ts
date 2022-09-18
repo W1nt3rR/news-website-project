@@ -2,7 +2,7 @@ import axios from "axios";
 
 const commonParams = {
     apiKey: "3603f9085251471c8e7e374b86b7322b",
-    pageSize: 10
+    pageSize: 12
 }
 
 const newsAPItop = axios.create({

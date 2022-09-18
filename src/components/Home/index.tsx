@@ -17,7 +17,7 @@ export const Home = () => {
     const [ sort, setSort ] = useState("publishedAt");
     const [ currentNews, setCurrentNews ] = useState("");
 
-    const newsAmmount = 10;
+    const newsAmmount = 12;
 
     useEffect(() => {
         handleFirstLoad();
