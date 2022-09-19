@@ -20,7 +20,7 @@ export const Home = () => {
     const newsAmmount = 12;
 
     useEffect(() => {
-        handleFirstLoad();
+        handleTopNews();
     }, [])
 
     const fetchTopNews = async (loadMore? : boolean) => {
@@ -102,12 +102,12 @@ export const Home = () => {
         setNews([...news, ...moreNews] as any);
     }
 
-    const handleSearchClick = async () => {  
+    const handleSearchNews = async () => {  
         const newNews = await fetchSearchNews();
         setNews(newNews);
     }
 
-    const handleFirstLoad = async () => {
+    const handleTopNews = async () => {
         setSearch("");
         const newNews = await fetchTopNews();
         setNews(newNews);
@@ -115,11 +115,11 @@ export const Home = () => {
 
     return <Layout>
         <div className={style.searchContainer}>
-            <Button type="coloured" onClickFn={handleFirstLoad} text="Top Headlines"/>
+            <Button type="coloured" onClickFn={handleTopNews} text="Top Headlines"/>
             <SearchInput input={search} setInput={setSearch}/>
             <div>
                 <SelectOption setOption={setSort} />
-                <Button type="coloured" onClickFn={handleSearchClick} text="Search"/>
+                <Button type="coloured" onClickFn={handleSearchNews} text="Search"/>
             </div>
         </div>
             
