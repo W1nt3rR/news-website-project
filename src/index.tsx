@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { NewsApp } from './components/NewsApp';
+import { NewsAppRouter } from './components/NewsAppRouter';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
 
@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <NewsApp />
+    <NewsAppRouter />
   </React.StrictMode>
 );
 
