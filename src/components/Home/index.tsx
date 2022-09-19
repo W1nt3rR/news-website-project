@@ -101,7 +101,7 @@ export const Home = () => {
         </div>
 
         <div className={style.pagination}>
-            {news && <Button type="coloured" onClickFn={loadMoreNews} text="Load More" />}
+            {news && !endOfNews && <Button type="coloured" onClickFn={loadMoreNews} text="Load More" />}
         </div>
     </Layout>
 }
