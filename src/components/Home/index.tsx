@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { newsAPIevery, newsAPItop } from "../../api/api";
+import { newsAPIsearch, newsAPItop } from "../../api/api";
 import { Button } from "../Button";
 import { Card } from "../Card";
 import { Layout, useGlobalNews } from "../Layout";
@@ -23,63 +23,38 @@ export const Home = () => {
         handleTopNews();
     }, [])
 
-    const fetchTopNews = async (loadMore? : boolean) => {
+    const fetchNews = async (type: string, loadMore? : boolean) => {
         try {
             let result;
-
-            const commonParams = {
+            
+            const topParams = {
                 country: selectedCountry
             }
             
-            if(currentNews !== "top" || !loadMore) {
-                setCurrentNews("top");
-                setEndOfNews(false);
-                setNextPage(2);
-                result = await newsAPItop.get("", {params: { 
-                    page: 1,
-                    ...commonParams
-                }});
-            } else {
-                setNextPage(nextPage + 1);
-                result = await newsAPItop.get("", {params: { 
-                    page: nextPage,
-                    ...commonParams
-                }});
-            }
-
-            return result.data.articles;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const fetchSearchNews = async (loadMore? : boolean) => {
-        try {
-            if(!search) return;
-
-            let result;
-
-            const commonParams = {
+            const searchParams = {
                 sortBy: sort,
                 q: search
             }
 
-            if(currentNews !== "every" || !loadMore) {
-                setCurrentNews("every");
+            if(!loadMore || currentNews !== type) {
                 setEndOfNews(false);
                 setNextPage(2);
-                result = await newsAPIevery.get("", {params: {
-                    page: 1,
-                    ...commonParams
-                }});
+                setCurrentNews(type);
+                
+                if(type === "search")
+                    result = await newsAPIsearch.get("", {params: { page: 1, ...searchParams }});
+                else
+                    result = await newsAPItop.get("", {params: { page: 1, ...topParams }});
+
             } else {
                 setNextPage(nextPage + 1);
-                result = await newsAPIevery.get("", {params: {
-                    page: nextPage,
-                    ...commonParams
-                }});
-            }
-            
+
+                if(type === "search")
+                    result = await newsAPIsearch.get("", {params: { page: nextPage, ...searchParams }});
+                else
+                    result = await newsAPItop.get("", {params: { page: nextPage, ...topParams }});
+            }     
+
             return result.data.articles;
         } catch (error) {
             console.log(error);
@@ -87,14 +62,10 @@ export const Home = () => {
     }
 
     const handleLoadMore = async () => {
-        if(endOfNews) return;
+        if(endOfNews)
+            return;
 
-        let moreNews;
-
-        if(currentNews === "top")
-            moreNews = await fetchTopNews(true);
-         else if (currentNews === "every")
-            moreNews = await fetchSearchNews(true);
+        const moreNews = await fetchNews(currentNews, true);
         
         if(moreNews.length < newsAmmount)
             setEndOfNews(true);
@@ -103,13 +74,13 @@ export const Home = () => {
     }
 
     const handleSearchNews = async () => {  
-        const newNews = await fetchSearchNews();
+        const newNews = await fetchNews("search");
         setNews(newNews);
     }
 
     const handleTopNews = async () => {
         setSearch("");
-        const newNews = await fetchTopNews();
+        const newNews = await fetchNews("top");
         setNews(newNews);
     }
 
