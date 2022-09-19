@@ -5,14 +5,12 @@ const commonParams = {
     pageSize: 12
 }
 
-const newsAPItop = axios.create({
+export const newsAPItop = axios.create({
     baseURL: "https://newsapi.org/v2/top-headlines",
     params: commonParams
 });
 
-const newsAPIevery = axios.create({
+export const newsAPIsearch = axios.create({
     baseURL: "https://newsapi.org/v2/everything",
     params: commonParams
 });
-
-export { newsAPItop, newsAPIevery };
