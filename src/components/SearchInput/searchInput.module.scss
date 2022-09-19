@@ -3,8 +3,14 @@
 .searchInput {
     width: 50vw;
     height: $searchSize;
-    font-size: 24px;
+    font-size: 20px;
     padding: 0 16px;
     border-radius: $border-radius;
     border: 1px solid $color;
+}
+
+@media screen and (max-width: 800px) {
+    .searchInput {
+        width: 90vw;
+    }
 }

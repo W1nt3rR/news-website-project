@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { newsAPI } from "../../api/api";
+import { newsAPIevery, newsAPItop } from "../../api/api";
 import { Button } from "../Button";
 import { Card } from "../Card";
 import { Layout, useGlobalNews } from "../Layout";
@@ -9,16 +9,18 @@ import style from "./home.module.scss";
 
 export const Home = () => {
 
-    // const [ news, setNews ] = useState([]);
     const [ news, setNews ] = useGlobalNews();
     const [ search, setSearch ] = useState("");
-    const [ currentPage, setCurrentPage] = useState(1);
+    const [ nextPage, setNextPage] = useState(2);
     const [ endOfNews, setEndOfNews ] = useState(false);
     const [ selectedCountry, setSelectedCountry ] = useState("us");
     const [ sort, setSort ] = useState("publishedAt");
+    const [ currentNews, setCurrentNews ] = useState("");
+
+    const newsAmmount = 12;
 
     useEffect(() => {
-        handleSearchClick();
+        handleFirstLoad();
     }, [])
 
     const searchParams = {
@@ -31,18 +33,22 @@ export const Home = () => {
     }
 
     const commonParams = {
-        pageSize: 20,
-        page: currentPage
+        page: nextPage
     }
 
-    const fetchNews = async () => {
+    const fetchTopNews = async (loadMore? : boolean) => {
         try {
             let result;
-
-            if(search)
-                result = await newsAPI.get("everything", {params: { ...commonParams, ...searchParams }});
-            else
-                result = await newsAPI.get("top-headlines", {params: { ...commonParams, ...topHeadlinesParams }});
+            
+            if(currentNews !== "top" || !loadMore) {
+                setCurrentNews("top");
+                setEndOfNews(false);
+                setNextPage(2);
+                result = await newsAPItop.get("", {params: { page: 1, ...topHeadlinesParams }});
+            } else {
+                setNextPage(nextPage + 1);
+                result = await newsAPItop.get("", {params: { ...commonParams, ...topHeadlinesParams }});
+            }
 
             return result.data.articles;
         } catch (error) {
@@ -50,39 +56,63 @@ export const Home = () => {
         }
     }
 
-    const handleLoadMore = async () => {
-        if(endOfNews)
-            return;
+    const fetchSearchNews = async (loadMore? : boolean) => {
+        try {
+            if(!search) return;
 
-        setCurrentPage(currentPage + 1);
-        const moreNews = await fetchNews();
+            let result;
+
+            if(currentNews !== "every" || !loadMore) {
+                setCurrentNews("every");
+                setEndOfNews(false);
+                setNextPage(2);
+                result = await newsAPIevery.get("", {params: { page: 1, ...searchParams }});
+            } else {
+                setNextPage(nextPage + 1);
+                result = await newsAPIevery.get("", {params: { ...commonParams, ...searchParams }});
+            }
+            
+            return result.data.articles;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleLoadMore = async () => {
+        if(endOfNews) return;
+
+        let moreNews;
+
+        if(currentNews === "top")
+            moreNews = await fetchTopNews(true);
+         else if (currentNews === "every")
+            moreNews = await fetchSearchNews(true);
         
-        if(moreNews.length < 20)
+        if(moreNews.length < newsAmmount)
             setEndOfNews(true);
 
         setNews([...news, ...moreNews] as any);
     }
 
     const handleSearchClick = async () => {  
-        // Reset control variables
-        setCurrentPage(2);
-        setEndOfNews(false);
+        const newNews = await fetchSearchNews();
+        setNews(newNews);
+    }
 
-        const newNews = await fetchNews();
-
+    const handleFirstLoad = async () => {
+        setSearch("");
+        const newNews = await fetchTopNews();
         setNews(newNews);
     }
 
     return <Layout>
-        
         <div className={style.searchContainer}>
-            <Button type="coloured" onClickFn={() => {
-                setSearch("");
-                handleSearchClick();
-            }} text="Top Headlines"/>
+            <Button type="coloured" onClickFn={handleFirstLoad} text="Top Headlines"/>
             <SearchInput input={search} setInput={setSearch}/>
-            <SelectOption setOption={setSort} />
-            <Button type="coloured" onClickFn={handleSearchClick} text="Search"/>
+            <div>
+                <SelectOption setOption={setSort} />
+                <Button type="coloured" onClickFn={handleSearchClick} text="Search"/>
+            </div>
         </div>
             
         <div className={style.newsContainer}>

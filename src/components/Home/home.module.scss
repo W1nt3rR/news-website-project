@@ -4,10 +4,17 @@
     display: flex;
     align-items: center;
     gap: $gap;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: $gap;
+    }
 }
 
 .newsContainer {
     margin-top: 32px;
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -16,4 +23,10 @@
 
 .pagination {
     margin-top: 48px;
+}
+
+@media screen and (max-width: 800px) {
+    .searchContainer {
+        flex-direction: column;
+    }
 }

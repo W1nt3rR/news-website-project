@@ -12,7 +12,7 @@ export const Card = (props : Props) => {
     const [ news ] = useGlobalNews();
     const navigation = useNavigate();
     const { index } = props;
-    const maxLength = 50;
+    const maxLength = 100;
 
     const openArticlePage = () => {
         navigation(`/article/${(news[index].title).replace(/\s/g, '-')}`, {state: index});
@@ -26,7 +26,7 @@ export const Card = (props : Props) => {
 
     return <div className={style.card}>
         <img src={news[index].urlToImage} alt="" />
-        <h3>{truncate(news[index].title)}</h3>
+        <h2>{truncate(news[index].title)}</h2>
         <h4>{truncate(news[index].description)}</h4>
         <div className="filler"></div>
         <Button type="white" text="More Info" onClickFn={openArticlePage}></Button>
