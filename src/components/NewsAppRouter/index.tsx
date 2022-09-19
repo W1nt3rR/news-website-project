@@ -2,11 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ArticlePage } from "../ArticlePage";
 import { Home } from "../Home";
 
-interface Props {
-
-}
-
-export const NewsApp = (props : Props) => {
+export const NewsAppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
