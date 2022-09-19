@@ -1,6 +1,6 @@
 # NewsAPI Website
 
-This project was coded around [NewsAPI](https://newsapi.org/).
+This project was coded around [NewsAPI](https://newsapi.org/).\
 Shows News in beautiful custom Cards with an ability to Search for News.
 
 ## Created with Create React App
