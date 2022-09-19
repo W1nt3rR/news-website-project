@@ -27,7 +27,7 @@ export const Home = () => {
         try {
             let result;
             
-            const topParams = {
+            const topHeadlinesParams = {
                 country: selectedCountry
             }
             
@@ -44,7 +44,7 @@ export const Home = () => {
                 if(type === "search")
                     result = await newsAPIsearch.get("", {params: { page: 1, ...searchParams }});
                 else
-                    result = await newsAPItop.get("", {params: { page: 1, ...topParams }});
+                    result = await newsAPItop.get("", {params: { page: 1, ...topHeadlinesParams }});
 
             } else {
                 setNextPage(nextPage + 1);
@@ -52,7 +52,7 @@ export const Home = () => {
                 if(type === "search")
                     result = await newsAPIsearch.get("", {params: { page: nextPage, ...searchParams }});
                 else
-                    result = await newsAPItop.get("", {params: { page: nextPage, ...topParams }});
+                    result = await newsAPItop.get("", {params: { page: nextPage, ...topHeadlinesParams }});
             }     
 
             return result.data.articles;
