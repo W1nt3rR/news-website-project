@@ -17,7 +17,7 @@ export const Home = () => {
     const [ sort, setSort ] = useState("publishedAt");
     const [ currentNews, setCurrentNews ] = useState("");
 
-    const newsAmmount = 12;
+    const newsAmmount = 24;
 
     useEffect(() => {
         getTopNews();
@@ -95,13 +95,13 @@ export const Home = () => {
         </div>
             
         <div className={style.newsContainer}>
-            {news && news.map((item: any, index: number) => {
+            {news ? news.map((item: any, index: number) => {
                 return <Card key={index} info={item} />
-            })}
+            }) : <h1>No Results</h1>}
         </div>
 
         <div className={style.pagination}>
-            <Button type="coloured" onClickFn={loadMoreNews} text="Load More" />
+            {news && !endOfNews && <Button type="coloured" onClickFn={loadMoreNews} text="Load More" />}
         </div>
     </Layout>
 }
