@@ -1,4 +1,9 @@
-# Getting Started with Create React App
+# NewsAPI Website
+
+This project was coded around [NewsAPI](https://newsapi.org/).
+Shows News in beautiful custom Cards with an ability to Search for News.
+
+## Created with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
