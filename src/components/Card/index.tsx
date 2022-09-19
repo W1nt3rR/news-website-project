@@ -1,3 +1,4 @@
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Button";
 import style from "./card.module.scss";
@@ -26,7 +27,7 @@ export const Card = (props : Props) => {
     }
 
     return <div className={style.card}>
-        <img src={info.urlToImage} alt="" />
+        <LazyLoadImage src={info.urlToImage} />
         <h2>{truncateSentance(info.title)}</h2>
         <h4>{truncateSentance(info.description)}</h4>
         <div className="filler"></div>
