@@ -23,31 +23,28 @@ export const Home = () => {
         handleFirstLoad();
     }, [])
 
-    const searchParams = {
-        sortBy: sort,
-        q: search
-    }
-
-    const topHeadlinesParams = {
-        country: selectedCountry
-    }
-
-    const commonParams = {
-        page: nextPage
-    }
-
     const fetchTopNews = async (loadMore? : boolean) => {
         try {
             let result;
+
+            const commonParams = {
+                country: selectedCountry
+            }
             
             if(currentNews !== "top" || !loadMore) {
                 setCurrentNews("top");
                 setEndOfNews(false);
                 setNextPage(2);
-                result = await newsAPItop.get("", {params: { page: 1, ...topHeadlinesParams }});
+                result = await newsAPItop.get("", {params: { 
+                    page: 1,
+                    ...commonParams
+                }});
             } else {
                 setNextPage(nextPage + 1);
-                result = await newsAPItop.get("", {params: { ...commonParams, ...topHeadlinesParams }});
+                result = await newsAPItop.get("", {params: { 
+                    page: nextPage,
+                    ...commonParams
+                }});
             }
 
             return result.data.articles;
@@ -62,14 +59,25 @@ export const Home = () => {
 
             let result;
 
+            const commonParams = {
+                sortBy: sort,
+                q: search
+            }
+
             if(currentNews !== "every" || !loadMore) {
                 setCurrentNews("every");
                 setEndOfNews(false);
                 setNextPage(2);
-                result = await newsAPIevery.get("", {params: { page: 1, ...searchParams }});
+                result = await newsAPIevery.get("", {params: {
+                    page: 1,
+                    ...commonParams
+                }});
             } else {
                 setNextPage(nextPage + 1);
-                result = await newsAPIevery.get("", {params: { ...commonParams, ...searchParams }});
+                result = await newsAPIevery.get("", {params: {
+                    page: nextPage,
+                    ...commonParams
+                }});
             }
             
             return result.data.articles;
