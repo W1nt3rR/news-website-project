@@ -20,7 +20,7 @@ export const Home = () => {
     const newsAmmount = 12;
 
     useEffect(() => {
-        handleTopNews();
+        getTopNews();
     }, [])
 
     const fetchNews = async (type: string, loadMore? : boolean) => {
@@ -61,7 +61,7 @@ export const Home = () => {
         }
     }
 
-    const handleLoadMore = async () => {
+    const loadMoreNews = async () => {
         if(endOfNews)
             return;
 
@@ -73,12 +73,12 @@ export const Home = () => {
         setNews([...news, ...moreNews] as any);
     }
 
-    const handleSearchNews = async () => {  
+    const getSearchNews = async () => {
         const newNews = await fetchNews("search");
         setNews(newNews);
     }
 
-    const handleTopNews = async () => {
+    const getTopNews = async () => {
         setSearch("");
         const newNews = await fetchNews("top");
         setNews(newNews);
@@ -86,11 +86,11 @@ export const Home = () => {
 
     return <Layout>
         <div className={style.searchContainer}>
-            <Button type="coloured" onClickFn={handleTopNews} text="Top Headlines"/>
+            <Button type="coloured" onClickFn={getTopNews} text="Top Headlines"/>
             <SearchInput input={search} setInput={setSearch}/>
             <div>
                 <SelectOption setOption={setSort} />
-                <Button type="coloured" onClickFn={handleSearchNews} text="Search"/>
+                <Button type="coloured" onClickFn={getSearchNews} text="Search"/>
             </div>
         </div>
             
@@ -101,7 +101,7 @@ export const Home = () => {
         </div>
 
         <div className={style.pagination}>
-            <Button type="coloured" onClickFn={handleLoadMore} text="Load More" />
+            <Button type="coloured" onClickFn={loadMoreNews} text="Load More" />
         </div>
     </Layout>
 }
