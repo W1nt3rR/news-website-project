@@ -4,7 +4,7 @@ import { Home } from "../Home";
 
 export const NewsAppRouter = () => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="news-website-project">
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/article/*" element={<ArticlePage />} />
